@@ -16,7 +16,7 @@
           <p>{{ n }}. Meal</p>
           <div>
             <p>Wight in g</p>
-            <input type="number" step="5" :value="meals[n - 1]" @change="meals[n - 1] = $event.target.value" />
+            <input type="number" step="5" pattern="[0-9]*" :value="meals[n - 1]" @change="meals[n - 1] = $event.target.value" />
           </div>
         </div>
       </div>
@@ -35,11 +35,11 @@
         <div v-for="n in foodCount" :key="n" class="box">
           <div>
             <p>Wight in g</p>
-            <input type="number" step="25" :value="food[n - 1].wight" @change="food[n - 1].wight = $event.target.value" />
+            <input type="number" step="25" pattern="[0-9]*" :value="food[n - 1].wight" @change="food[n - 1].wight = $event.target.value" />
           </div>
           <div>
             <p>Price</p>
-            <input type="number" step="0.01" :value="food[n - 1].price" @change="food[n - 1].price = $event.target.value" />
+            <input type="number" step="0.01" pattern="[0-9]*" :value="food[n - 1].price" @change="food[n - 1].price = $event.target.value" />
           </div>
         </div>
       </div>
@@ -132,7 +132,7 @@ export default {
     return {
       mealCount: 2,
       foodCount: 2,
-      meals: [80, 80, 100, 100],
+      meals: [200, 160, 100, 100],
       food: [
         { wight: 800, price: 4.45 },
         { wight: 750, price: 5.5 },
@@ -165,7 +165,7 @@ export default {
         wightSum += this.meals[i - 1] * 1;
       }
 
-      const pricePerMeal = ((priceSum / this.foodCount / 1000) * wightSum).toFixed(2);
+      const pricePerMeal = (((priceSum / this.foodCount / 1000) * wightSum) / this.mealCount).toFixed(2);
 
       priceSum = priceSum.toFixed(2);
       return { pricePerMeal, wightSum, priceSum };
